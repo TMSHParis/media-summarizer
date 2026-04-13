@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import { writeFile, unlink, readFile, stat } from "fs/promises";
-import { execFile, execSync } from "child_process";
-import { promisify } from "util";
-import path from "path";
-import os from "os";
-import { readdirSync } from "fs";
+import { writeFile, unlink, readFile, stat } from "node:fs/promises";
+import { execFile, execSync } from "node:child_process";
+import { promisify } from "node:util";
+import path from "node:path";
+import os from "node:os";
+import { readdirSync } from "node:fs";
 
 const openai = new OpenAI();
 const execFileAsync = promisify(execFile);
