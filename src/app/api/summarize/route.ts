@@ -7,7 +7,11 @@ import path from "node:path";
 import os from "node:os";
 import { readdirSync } from "node:fs";
 
-const openai = new OpenAI();
+let _openai: OpenAI | null = null;
+function getOpenAI() {
+  if (!_openai) _openai = new OpenAI();
+  return _openai;
+}
 const execFileAsync = promisify(execFile);
 
 function isYouTubeUrl(url: string): boolean {
@@ -54,7 +58,7 @@ async function extractAndSplitAudio(inputPath: string): Promise<string[]> {
 async function transcribeChunk(chunkPath: string): Promise<string> {
   const buffer = await readFile(chunkPath);
   const file = new File([buffer], "chunk.mp3", { type: "audio/mpeg" });
-  const result = await openai.audio.transcriptions.create({
+  const result = await getOpenAI().audio.transcriptions.create({
     file,
     model: "whisper-1",
   });
@@ -169,7 +173,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Chronological summary
-    const chronoResponse = await openai.chat.completions.create({
+    const chronoResponse = await getOpenAI().chat.completions.create({
       model: "gpt-4o",
       messages: [
         {
@@ -201,7 +205,7 @@ export async function POST(request: NextRequest) {
     const chronoSummary = chronoResponse.choices[0]?.message?.content || "";
 
     // Thematic summary
-    const thematicResponse = await openai.chat.completions.create({
+    const thematicResponse = await getOpenAI().chat.completions.create({
       model: "gpt-4o",
       messages: [
         {
