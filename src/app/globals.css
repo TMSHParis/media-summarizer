@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0f;
+  --foreground: #ededed;
+  --gold: #d4a853;
+  --gold-light: #f0d68a;
+  --emerald: #047857;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-arabic: var(--font-noto-naskh);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Islamic geometric background pattern */
+.islamic-bg {
+  background-color: #0a0a0f;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(212, 168, 83, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(4, 120, 87, 0.08) 0%, transparent 50%);
+}
+
+.islamic-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L35 10L30 20L25 10Z' fill='none' stroke='rgba(212,168,83,0.06)' stroke-width='0.5'/%3E%3Cpath d='M0 30L10 25L20 30L10 35Z' fill='none' stroke='rgba(212,168,83,0.06)' stroke-width='0.5'/%3E%3Cpath d='M30 40L35 50L30 60L25 50Z' fill='none' stroke='rgba(212,168,83,0.06)' stroke-width='0.5'/%3E%3Cpath d='M40 30L50 25L60 30L50 35Z' fill='none' stroke='rgba(212,168,83,0.06)' stroke-width='0.5'/%3E%3Ccircle cx='30' cy='30' r='8' fill='none' stroke='rgba(212,168,83,0.04)' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+/* Glow effects */
+.glow-gold {
+  box-shadow: 0 0 30px rgba(212, 168, 83, 0.15), 0 0 60px rgba(212, 168, 83, 0.05);
+}
+
+.glow-gold-strong {
+  box-shadow: 0 0 40px rgba(212, 168, 83, 0.25), 0 0 80px rgba(212, 168, 83, 0.1);
+}
+
+/* Animated border gradient */
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(212, 168, 83, 0.3); }
+  50% { border-color: rgba(212, 168, 83, 0.6); }
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+/* Pulse for loading */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(212, 168, 83, 0.1) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Star decoration */
+.star-decoration::before {
+  content: "✦";
+  color: rgba(212, 168, 83, 0.4);
+  margin: 0 0.5rem;
+}
+.star-decoration::after {
+  content: "✦";
+  color: rgba(212, 168, 83, 0.4);
+  margin: 0 0.5rem;
 }
